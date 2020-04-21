@@ -34,6 +34,7 @@ export default {
         id: 2,
       },
     },
+
   }),
   computed: {
     totalBalance() {

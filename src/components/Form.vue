@@ -1,21 +1,21 @@
 <template>
-  <Elcard class="form-card">
-    <ElForm :model="formData">
-<ElFormItem lable="Type" prop="type">
-  <ElSelect  class="type-select" v-model="formData.type" placeholder="choose type">
-<ElOption lable="Income" value="INCOME"/>
-<ElOption lable="Outcome" value="Outcome"/>
-     </ElSelect>
-</ElFormItem>
-<ElFormItem lable="Comments" prop="comment">
-<el-input v-model="formData.comment"></el-input>
-</ElFormItem>
-<ElFormItem lable="Value" prop="value">
-<ElInput v-model.number="formData.value" />
-</ElFormItem>
-<ElButton @click="onSubmit" type="primary">Sumbit</ElButton>
+  <el-card class="form-card">
+    <ElForm :model="formData" :rules="rules" label-position="right">
+      <ElFormItem label="Type" prop="type">
+        <ElSelect class="type-select" v-model="formData.type" placeholder="choose type">
+          <ElOption label="Income" value="INCOME" />
+          <ElOption label="Outcome" value="Outcome" />
+        </ElSelect>
+      </ElFormItem>
+      <ElFormItem label="Comments" prop="comment">
+        <el-input v-model="formData.comment"></el-input>
+      </ElFormItem>
+      <ElFormItem label="Value" prop="value">
+        <ElInput v-model.number="formData.value" />
+      </ElFormItem>
+      <ElButton @click="onSubmit" type="primary">Submit</ElButton>
     </ElForm>
-  </Elcard>
+  </el-card>
 </template>
 
 <script>
@@ -24,26 +24,33 @@ export default {
   data: () => ({
     formData: {
       type: 'INCOME',
-      comment: 'wtf',
+      comment: '',
       value: 0,
+    },
+    rules: {
+      type: [
+        { required: true, message: 'Please select type', trigger: 'blur' },
+      ],
+      comment: [
+        { required: true, message: 'Please input comment', trigger: 'blur' },
+      ],
+      value: [{ required: true, message: 'Please input value', trigger: 'change' },
+        { type: 'number', message: 'Please input number', trigger: 'change' },
+      ],
     },
   }),
   methods: {
-    onSubmit() {
-
-    },
+    onSubmit() {},
   },
 };
 </script>
 
 <style scoped>
-.form-card{
-  display: block;
+.form-card {
   max-width: 500px;
   margin: auto;
 }
-.type-select{
+.type-select {
   width: 100%;
 }
-
 </style>
