@@ -10,6 +10,7 @@ import {
   Select,
   Option,
   Alert,
+  Input,
 } from 'element-ui';
 
 const elements = [Button,
@@ -18,7 +19,9 @@ const elements = [Button,
   FormItem,
   Select,
   Option,
-  Alert];
+  Alert,
+  Input,
+];
 locale.use(lang);
 
 elements.forEach((El) => Vue.use(El, { locale }));
