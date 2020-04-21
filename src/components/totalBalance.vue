@@ -1,5 +1,7 @@
+/* eslint-disable no-nested-ternary */
 <template>
-<div class="total-value">
+<div :class="currentColor" class="total-value"
+:style="currentColor"  >
 Balance: {{ total }}
 </div>
 </template>
@@ -8,10 +10,26 @@ Balance: {{ total }}
 
 export default {
   name: 'TotalBalance',
+  data: () => ({
+    activeClass: 'default',
+    testColor: 'blue',
+
+  }),
   props: {
     total: {
       type: Number,
       default: 0,
+    },
+  },
+  computed: {
+    currentColor() {
+      return {
+        // eslint-disable-next-line no-nested-ternary
+        color: this.total === 0 ? 'black' : this.total > 0 ? 'green' : 'red',
+        // 'color:black': this.total === 0,
+        // 'color:green': this.total > 0,
+        // 'color:red': this.total < 0,
+      };
     },
   },
 };
@@ -24,4 +42,14 @@ export default {
   padding: 20px;
   text-align: center;
 }
+
+/* .black{
+  color:black;
+}
+.green{
+  color:green
+}
+.red{
+  color:red
+} */
 </style>
