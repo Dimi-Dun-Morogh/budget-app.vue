@@ -34,9 +34,6 @@ export default {
   data: () => ({
     dialogVisible: false,
     idToDel: 0,
-    visibility: {
-      showIncome: true,
-    },
     list: {
       1: {
         type: 'INCOME',
@@ -76,7 +73,6 @@ export default {
     },
     deleteWithDialog() {
       this.$delete(this.list, this.idToDel);
-      this.idToDel = 0;
     },
     onFormSubmit(data) {
       const newObj = {
@@ -86,7 +82,6 @@ export default {
       this.$set(this.list, newObj.id, newObj);
     },
     showIncome() {
-      console.log('is income popin', document.querySelectorAll('.INCOMEvis'));
       document.querySelectorAll('.Outcomevis').forEach((item) => item.classList.add('disp-off'));
       document.querySelectorAll('.INCOMEvis').forEach((item) => item.classList.remove('disp-off'));
     },
