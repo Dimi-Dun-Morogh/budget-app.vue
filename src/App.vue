@@ -2,6 +2,17 @@
   <div id="app">
     <Form @submitForm="onFormSubmit"/>
     <TotalBalance :total="totalBalance"/>
+    <el-dialog
+  title="Tips"
+  :visible.sync="dialogVisible"
+  width="30%"
+  :before-close="handleClose">
+  <span>Do you really want to delete this item?</span>
+  <span slot="footer" class="dialog-footer">
+    <el-button @click="dialogVisible = false">Cancel</el-button>
+    <el-button type="primary" @click="dialogVisible = false;deleteWithDialog();">Confirm</el-button>
+  </span>
+</el-dialog>
     <BudgetList :list="list" @deleteItem="onDeleteItem" @ShowIn="showIncome" @ShowOut="showOutCome"
      @ShowEvery="showEverything"/>
   </div>
@@ -21,6 +32,8 @@ export default {
     Form,
   },
   data: () => ({
+    dialogVisible: false,
+    idToDel: 0,
     visibility: {
       showIncome: true,
     },
@@ -46,11 +59,24 @@ export default {
     },
   },
   methods: {
+    handleClose(done) {
+      this.$confirm('Are you sure to close this dialog?')
+        .then(() => {
+          done();
+        })
+        .catch(() => {});
+    },
 
     onDeleteItem(id) {
-      if (confirm('really delete?')) {
-        this.$delete(this.list, id);
-      }
+      this.dialogVisible = true;
+      this.idToDel = id;
+      // if (confirm('really delete?')) {
+      //   this.$delete(this.list, id);
+      // }
+    },
+    deleteWithDialog() {
+      this.$delete(this.list, this.idToDel);
+      this.idToDel = 0;
     },
     onFormSubmit(data) {
       const newObj = {
@@ -61,16 +87,16 @@ export default {
     },
     showIncome() {
       console.log('is income popin', document.querySelectorAll('.INCOMEvis'));
-      document.querySelectorAll('.Outcomevis').forEach((item) => item.classList.add('piss-off'));
-      document.querySelectorAll('.INCOMEvis').forEach((item) => item.classList.remove('piss-off'));
+      document.querySelectorAll('.Outcomevis').forEach((item) => item.classList.add('disp-off'));
+      document.querySelectorAll('.INCOMEvis').forEach((item) => item.classList.remove('disp-off'));
     },
     showOutCome() {
-      document.querySelectorAll('.INCOMEvis').forEach((item) => item.classList.add('piss-off'));
-      document.querySelectorAll('.Outcomevis').forEach((item) => item.classList.remove('piss-off'));
+      document.querySelectorAll('.INCOMEvis').forEach((item) => item.classList.add('disp-off'));
+      document.querySelectorAll('.Outcomevis').forEach((item) => item.classList.remove('disp-off'));
     },
     showEverything() {
-      document.querySelectorAll('.Outcomevis').forEach((item) => item.classList.remove('piss-off'));
-      document.querySelectorAll('.INCOMEvis').forEach((item) => item.classList.remove('piss-off'));
+      document.querySelectorAll('.Outcomevis').forEach((item) => item.classList.remove('disp-off'));
+      document.querySelectorAll('.INCOMEvis').forEach((item) => item.classList.remove('disp-off'));
     },
   },
 };
@@ -85,7 +111,7 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
-.piss-off{
+.disp-off{
   display: none !important;
 }
 </style>

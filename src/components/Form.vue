@@ -22,10 +22,11 @@
 export default {
   name: 'Form',
   data: () => ({
+
     formData: {
       type: 'INCOME',
       comment: '',
-      value: 0,
+      value: '',
     },
     rules: {
       type: [
@@ -36,6 +37,8 @@ export default {
       ],
       value: [{ required: true, message: 'Please input value', trigger: 'change' },
         { type: 'number', message: 'Please input number', trigger: 'change' },
+
+
       ],
     },
   }),
