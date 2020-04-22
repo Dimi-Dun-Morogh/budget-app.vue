@@ -2,7 +2,8 @@
   <div id="app">
     <Form @submitForm="onFormSubmit"/>
     <TotalBalance :total="totalBalance"/>
-    <BudgetList :list="list" @deleteItem="onDeleteItem"/>
+    <BudgetList :list="list" @deleteItem="onDeleteItem" @ShowIn="showIncome" @ShowOut="showOutCome"
+     @ShowEvery="showEverything"/>
   </div>
 </template>
 
@@ -20,7 +21,9 @@ export default {
     Form,
   },
   data: () => ({
-    dialogVisible: false,
+    visibility: {
+      showIncome: true,
+    },
     list: {
       1: {
         type: 'INCOME',
@@ -56,6 +59,19 @@ export default {
       };
       this.$set(this.list, newObj.id, newObj);
     },
+    showIncome() {
+      console.log('is income popin', document.querySelectorAll('.INCOMEvis'));
+      document.querySelectorAll('.Outcomevis').forEach((item) => item.classList.add('piss-off'));
+      document.querySelectorAll('.INCOMEvis').forEach((item) => item.classList.remove('piss-off'));
+    },
+    showOutCome() {
+      document.querySelectorAll('.INCOMEvis').forEach((item) => item.classList.add('piss-off'));
+      document.querySelectorAll('.Outcomevis').forEach((item) => item.classList.remove('piss-off'));
+    },
+    showEverything() {
+      document.querySelectorAll('.Outcomevis').forEach((item) => item.classList.remove('piss-off'));
+      document.querySelectorAll('.INCOMEvis').forEach((item) => item.classList.remove('piss-off'));
+    },
   },
 };
 </script>
@@ -68,5 +84,8 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+.piss-off{
+  display: none !important;
 }
 </style>

@@ -1,13 +1,11 @@
 <template>
   <div class="budget-list-wrap">
+            <ElButton @click="showOut" type="danger" class="button">Outcome</ElButton>
+        <ElButton @click="showIn" type="success" class="button">Income</ElButton>
+        <ElButton @click="showEvery" type="primary" class="button">Everything</ElButton>
     <ElCard :header="header">
       <template v-if="!isEmpty">
 <BudgetListItem :list="list" @deleteItem="deleteItem"/>
-<!-- <div class="list-item" v-for="(item, prop) in list" :key="prop">
-  <span  class="budget-comment"> {{  item.comment}}</span>
-   <span  class="budget-value"> {{  item.value}}</span>
-   <ElButton type="danger" size="mini" @click="deleteItem(item.id)">Delete</ElButton>
-</div> -->
          </template>
 <ElAlert v-else type="info" :title="emptyTitle" :closable="false">  </ElAlert>
 
@@ -42,6 +40,16 @@ export default {
     deleteItem(id) {
       this.$emit('deleteItem', id);
     },
+    showOut() {
+      this.$emit('ShowOut');
+    },
+    showIn() {
+      this.$emit('ShowIn');
+    },
+    showEvery() {
+      this.$emit('ShowEvery');
+    },
+
   },
 };
 </script>
@@ -50,5 +58,8 @@ export default {
 .budget-list-wrap{
   max-width: 500px;
   margin: auto;
+}
+.button{
+  margin-bottom: 20px;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="list-item" v-for="(item, prop) in list" :key="prop">
-      <span class="budget-comment">{{ item.comment}}</span>
+    <div class="list-item" v-for="(item, prop) in list" :key="prop" :class="item.type + 'vis'">
+      <span  class="budget-comment">{{ item.comment}}</span>
 
       <span :class="item.type" class="budget-value">
         {{ item.value}}
@@ -9,6 +9,7 @@
    :'el-icon-bottom'"></i>
       </span>
       <ElButton type="danger" size="mini" @click="deleteItem(item.id)">Delete</ElButton>
+
     </div>
   </div>
 </template>
@@ -16,24 +17,18 @@
 <script>
 export default {
   name: 'BudgetListItem',
-  props: {
-    list: {
-      type: Object,
-      default: () => ({}),
-    },
-  },
+  props: ['list', 'visibility'],
   methods: {
     deleteItem(id) {
       this.$emit('deleteItem', id);
     },
   },
   computed: {
-    // currlass() {
+    // isVisible(){
     //   return {
-    //     'el-icon-edit': this.list.item.type === 'INCOME',
-    //     'el-icon-share': this.list.item.type === 'Outcome',
-    //   };
-    // },
+
+    //   }
+    // }
   },
 };
 </script>
