@@ -20,6 +20,7 @@ export default {
     Form,
   },
   data: () => ({
+    dialogVisible: false,
     list: {
       1: {
         type: 'INCOME',
@@ -42,8 +43,11 @@ export default {
     },
   },
   methods: {
+
     onDeleteItem(id) {
-      this.$delete(this.list, id);
+      if (confirm('really delete?')) {
+        this.$delete(this.list, id);
+      }
     },
     onFormSubmit(data) {
       const newObj = {
