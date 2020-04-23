@@ -1,28 +1,24 @@
 <template>
   <div id="app">
-    <Form @submitForm="onFormSubmit"/>
-    <TotalBalance :total="totalBalance"/>
-    <el-dialog
-  title="Tips"
-  :visible.sync="dialogVisible"
-  width="30%"
-  :before-close="handleClose">
-  <span>Do you really want to delete this item?</span>
-  <span slot="footer" class="dialog-footer">
-    <el-button @click="dialogVisible = false">Cancel</el-button>
-    <el-button type="primary" @click="dialogVisible = false;deleteWithDialog();">Confirm</el-button>
-  </span>
-</el-dialog>
-    <BudgetList :list="list" @deleteItem="onDeleteItem" @ShowIn="showIncome" @ShowOut="showOutCome"
-     @ShowEvery="showEverything"/>
+    <Form @submitForm="onFormSubmit" />
+    <TotalBalance :total="totalBalance" />
+    <DialogUi :dialogVisible="dialogVisible" @Confirm="deleteWithDialog"
+     @Cancel="dialogVisible=false"/>
+    <BudgetList
+      :list="list"
+      @deleteItem="onDeleteItem"
+      @ShowIn="showIncome"
+      @ShowOut="showOutCome"
+      @ShowEvery="showEverything"
+    />
   </div>
 </template>
 
 <script>
 import BudgetList from '@/components/BudgetList.vue';
-
 import TotalBalance from '@/components/totalBalance.vue';
 import Form from '@/components/Form.vue';
+import DialogUi from '@/components/DialogUi.vue';
 
 export default {
   name: 'App',
@@ -30,6 +26,7 @@ export default {
     BudgetList,
     TotalBalance,
     Form,
+    DialogUi,
   },
   data: () => ({
     dialogVisible: false,
@@ -48,11 +45,13 @@ export default {
         id: 2,
       },
     },
-
   }),
   computed: {
     totalBalance() {
-      return Object.values(this.list).reduce((acc, item) => acc + item.value, 0);
+      return Object.values(this.list).reduce(
+        (acc, item) => acc + item.value,
+        0,
+      );
     },
   },
   methods: {
@@ -63,7 +62,6 @@ export default {
         })
         .catch(() => {});
     },
-
     onDeleteItem(id) {
       this.dialogVisible = true;
       this.idToDel = id;
@@ -73,6 +71,7 @@ export default {
     },
     deleteWithDialog() {
       this.$delete(this.list, this.idToDel);
+      this.dialogVisible = false;
     },
     onFormSubmit(data) {
       const newObj = {
@@ -82,22 +81,37 @@ export default {
       this.$set(this.list, newObj.id, newObj);
     },
     showIncome() {
-      document.querySelectorAll('.Outcomevis').forEach((item) => item.classList.add('disp-off'));
-      document.querySelectorAll('.INCOMEvis').forEach((item) => item.classList.remove('disp-off'));
+      document
+        .querySelectorAll('.Outcomevis')
+        .forEach((item) => item.classList.add('disp-off'));
+      document
+        .querySelectorAll('.INCOMEvis')
+        .forEach((item) => item.classList.remove('disp-off'));
     },
     showOutCome() {
-      document.querySelectorAll('.INCOMEvis').forEach((item) => item.classList.add('disp-off'));
-      document.querySelectorAll('.Outcomevis').forEach((item) => item.classList.remove('disp-off'));
+      document
+        .querySelectorAll('.INCOMEvis')
+        .forEach((item) => item.classList.add('disp-off'));
+      document
+        .querySelectorAll('.Outcomevis')
+        .forEach((item) => item.classList.remove('disp-off'));
     },
     showEverything() {
-      document.querySelectorAll('.Outcomevis').forEach((item) => item.classList.remove('disp-off'));
-      document.querySelectorAll('.INCOMEvis').forEach((item) => item.classList.remove('disp-off'));
+      document
+        .querySelectorAll('.Outcomevis')
+        .forEach((item) => item.classList.remove('disp-off'));
+      document
+        .querySelectorAll('.INCOMEvis')
+        .forEach((item) => item.classList.remove('disp-off'));
     },
   },
 };
 </script>
 
 <style>
+body {
+  background-color: beige;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -105,8 +119,11 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  background-color: #f9f6f9;
+  margin: auto;
+  max-width: 500px;
 }
-.disp-off{
+.disp-off {
   display: none !important;
 }
 </style>

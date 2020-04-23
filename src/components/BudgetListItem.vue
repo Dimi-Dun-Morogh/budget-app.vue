@@ -23,13 +23,6 @@ export default {
       this.$emit('deleteItem', id);
     },
   },
-  computed: {
-    // isVisible(){
-    //   return {
-
-    //   }
-    // }
-  },
 };
 </script>
 
