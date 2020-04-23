@@ -21,27 +21,37 @@
 <script>
 export default {
   name: 'Form',
-  data: () => ({
+  data() {
+    const valid = (rule, value, callback) => {
+      if (value === 0) {
+        return callback(new Error('Please input the value'));
+      }
 
-    formData: {
-      type: 'INCOME',
-      comment: '',
-      value: '',
-    },
-    rules: {
-      type: [
-        { required: true, message: 'Please select type', trigger: 'blur' },
-      ],
-      comment: [
-        { required: true, message: 'Please input comment', trigger: 'blur' },
-      ],
-      value: [{ required: true, message: 'Please input value', trigger: 'change' },
-        { type: 'number', message: 'Please input number', trigger: 'change' },
+      callback();
+      return 0;// luv lint
+    };
+    return {
+      formData: {
+        type: 'INCOME',
+        comment: '',
+        value: '',
+      },
+      rules: {
+        type: [
+          { required: true, message: 'Please select type', trigger: 'blur' },
+        ],
+        comment: [
+          { required: true, message: 'Please input comment', trigger: 'blur' },
+        ],
+        value: [{ required: true, message: 'Please input value', trigger: 'change' },
+          { type: 'number', message: 'Please input number', trigger: 'change' },
+          { validator: valid },
 
 
-      ],
-    },
-  }),
+        ],
+      },
+    };
+  },
   methods: {
     onSubmit() {
       this.$refs.addItemForm.validate((valid) => {
