@@ -5,7 +5,8 @@
         <ElButton @click="showEvery" type="primary" class="button">Everything</ElButton>
     <ElCard :header="header">
       <template v-if="!isEmpty">
-<BudgetListItem :list="list" @deleteItem="deleteItem"/>
+<BudgetListItem :outComeVisible="outComeVisible" :list="list"
+:incomeVisible="incomeVisible" @deleteItem="deleteItem"/>
          </template>
 <ElAlert v-else type="info" :title="emptyTitle" :closable="false">  </ElAlert>
 
@@ -25,6 +26,14 @@ export default {
     list: {
       type: Object,
       default: () => ({}),
+    },
+    outComeVisible: {
+      type: Boolean,
+      default: true,
+    },
+    incomeVisible: {
+      type: Boolean,
+      default: true,
     },
   },
   data: () => ({

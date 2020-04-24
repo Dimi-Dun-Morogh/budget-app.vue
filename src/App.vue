@@ -5,6 +5,8 @@
     <DialogUi :dialogVisible="dialogVisible" @Confirm="deleteWithDialog"
      @Cancel="dialogVisible=false"/>
     <BudgetList
+      :outComeVisible="outComeVisible"
+      :incomeVisible="incomeVisible"
       :list="list"
       @deleteItem="onDeleteItem"
       @ShowIn="showIncome"
@@ -29,6 +31,8 @@ export default {
     DialogUi,
   },
   data: () => ({
+    incomeVisible: true,
+    outComeVisible: true,
     dialogVisible: false,
     idToDel: 0,
     list: {
@@ -81,28 +85,34 @@ export default {
       this.$set(this.list, newObj.id, newObj);
     },
     showIncome() {
-      document
-        .querySelectorAll('.Outcomevis')
-        .forEach((item) => item.classList.add('disp-off'));
-      document
-        .querySelectorAll('.INCOMEvis')
-        .forEach((item) => item.classList.remove('disp-off'));
+      this.outComeVisible = false;
+      this.incomeVisible = true;
+      // document
+      //   .querySelectorAll('.Outcomevis')
+      //   .forEach((item) => item.classList.add('disp-off'));
+      // document
+      //   .querySelectorAll('.INCOMEvis')
+      //   .forEach((item) => item.classList.remove('disp-off'));
     },
     showOutCome() {
-      document
-        .querySelectorAll('.INCOMEvis')
-        .forEach((item) => item.classList.add('disp-off'));
-      document
-        .querySelectorAll('.Outcomevis')
-        .forEach((item) => item.classList.remove('disp-off'));
+      this.outComeVisible = true;
+      this.incomeVisible = false;
+      // document
+      //   .querySelectorAll('.INCOMEvis')
+      //   .forEach((item) => item.classList.add('disp-off'));
+      // document
+      //   .querySelectorAll('.Outcomevis')
+      //   .forEach((item) => item.classList.remove('disp-off'));
     },
     showEverything() {
-      document
-        .querySelectorAll('.Outcomevis')
-        .forEach((item) => item.classList.remove('disp-off'));
-      document
-        .querySelectorAll('.INCOMEvis')
-        .forEach((item) => item.classList.remove('disp-off'));
+      this.outComeVisible = true;
+      this.incomeVisible = true;
+      // document
+      //   .querySelectorAll('.Outcomevis')
+      //   .forEach((item) => item.classList.remove('disp-off'));
+      // document
+      //   .querySelectorAll('.INCOMEvis')
+      //   .forEach((item) => item.classList.remove('disp-off'));
     },
   },
 };

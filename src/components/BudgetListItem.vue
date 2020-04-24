@@ -1,9 +1,11 @@
 <template>
   <div>
-    <div class="list-item" v-for="(item, prop) in list" :key="prop" :class="item.type + 'vis'">
+    <div class="list-item" v-for="(item, prop) in list" :key="prop"
+      v-show="item.type ===  'Outcome'? outComeVisible: incomeVisible ">
       <span  class="budget-comment">{{ item.comment}}</span>
 
-      <span :class="item.type" class="budget-value">
+      <span :style="`color: ${item.type === 'INCOME' ? 'green' : 'red'}`"
+       :class="item.type" class="budget-value">
         {{ item.value}}
         <i :class="item.type==='INCOME'?'el-icon-top'
    :'el-icon-bottom'"></i>
@@ -17,7 +19,7 @@
 <script>
 export default {
   name: 'BudgetListItem',
-  props: ['list', 'visibility'],
+  props: ['list', 'outComeVisible', 'incomeVisible'],
   methods: {
     deleteItem(id) {
       this.$emit('deleteItem', id);
@@ -36,11 +38,5 @@ export default {
   display: flex;
   align-items: center;
   padding: 10px 15px;
-}
-.Outcome {
-  color: red;
-}
-.INCOME {
-  color: green;
 }
 </style>
