@@ -73,6 +73,7 @@ export default {
 
 <style scoped>
 .form-card {
+  border-radius: 25px;
   max-width: 500px;
   margin: auto;
 }

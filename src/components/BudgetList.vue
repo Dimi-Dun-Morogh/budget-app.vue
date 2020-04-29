@@ -3,7 +3,7 @@
             <ElButton @click="showOut" type="danger" class="button">Outcome</ElButton>
         <ElButton @click="showIn" type="success" class="button">Income</ElButton>
         <ElButton @click="showEvery" type="primary" class="button">Everything</ElButton>
-    <ElCard :header="header">
+    <ElCard class="card-custom" :header="header">
       <template v-if="!isEmpty">
 <BudgetListItem :outComeVisible="outComeVisible"
 :incomeVisible="incomeVisible" @deleteItem="deleteItem"/>
@@ -68,5 +68,8 @@ export default {
 }
 .button{
   margin-bottom: 20px;
+}
+.card-custom{
+  border-radius: 20px  20px 0 0;
 }
 </style>

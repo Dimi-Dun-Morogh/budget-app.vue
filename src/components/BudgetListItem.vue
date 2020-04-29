@@ -10,7 +10,8 @@
         <i :class="item.type==='INCOME'?'el-icon-top'
    :'el-icon-bottom'"></i>
       </span>
-      <ElButton type="danger" size="mini" @click="deleteItem(item.id)">Delete</ElButton>
+      <ElButton class="custom-icon"  plain icon="el-icon-error"
+      size="mini" @click="deleteItem(item.id)"></ElButton>
 
     </div>
   </div>
@@ -43,5 +44,10 @@ export default {
   display: flex;
   align-items: center;
   padding: 10px 15px;
+}
+.custom-icon {
+   font-size: 1.3rem;
+   color: red;
+   border: none;
 }
 </style>

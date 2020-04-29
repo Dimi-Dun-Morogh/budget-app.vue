@@ -87,7 +87,8 @@ export default {
 
 <style>
 body {
-  background-color: beige;
+  /* background-color: beige; */
+  background-image: url("img/texture.jpg");
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -99,6 +100,8 @@ body {
   background-color: #f9f6f9;
   margin: auto;
   max-width: 500px;
+   border-radius: 25px !important;
+  /* border: 2px solid #73AD21 !important; */
 }
 .disp-off {
   display: none !important;
