@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="list-item" v-for="(item, prop) in list" :key="prop"
+    <div class="list-item" v-for="(item, prop) in budgetList" :key="prop"
       v-show="item.type ===  'Outcome'? outComeVisible: incomeVisible ">
       <span  class="budget-comment">{{ item.comment}}</span>
 
@@ -17,13 +17,18 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'BudgetListItem',
-  props: ['list', 'outComeVisible', 'incomeVisible'],
+  props: ['outComeVisible', 'incomeVisible'],
   methods: {
     deleteItem(id) {
       this.$emit('deleteItem', id);
     },
+  },
+  computed: {
+    ...mapGetters(['budgetList']),
   },
 };
 </script>

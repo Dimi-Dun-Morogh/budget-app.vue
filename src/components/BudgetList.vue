@@ -5,7 +5,7 @@
         <ElButton @click="showEvery" type="primary" class="button">Everything</ElButton>
     <ElCard :header="header">
       <template v-if="!isEmpty">
-<BudgetListItem :outComeVisible="outComeVisible" :list="list"
+<BudgetListItem :outComeVisible="outComeVisible"
 :incomeVisible="incomeVisible" @deleteItem="deleteItem"/>
          </template>
 <ElAlert v-else type="info" :title="emptyTitle" :closable="false">  </ElAlert>
@@ -16,6 +16,7 @@
 
 <script>
 import BudgetListItem from '@/components/BudgetListItem.vue';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'BudgetList',
@@ -23,10 +24,6 @@ export default {
     BudgetListItem,
   },
   props: {
-    list: {
-      type: Object,
-      default: () => ({}),
-    },
     outComeVisible: {
       type: Boolean,
       default: true,
@@ -42,8 +39,9 @@ export default {
   }),
   computed: {
     isEmpty() {
-      return !Object.keys(this.list).length;
+      return !Object.keys(this.budgetList).length;
     },
+    ...mapGetters(['budgetList']),
   },
   methods: {
     deleteItem(id) {

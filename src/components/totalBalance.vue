@@ -26,9 +26,6 @@ export default {
       return {
         // eslint-disable-next-line no-nested-ternary
         color: this.total === 0 ? 'black' : this.total > 0 ? 'green' : 'red',
-        // 'color:black': this.total === 0,
-        // 'color:green': this.total > 0,
-        // 'color:red': this.total < 0,
       };
     },
   },
